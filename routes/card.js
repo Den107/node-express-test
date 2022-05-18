@@ -4,16 +4,18 @@ const Course = require('../models/course')
 const router = Router()
 
 router.post('/add', async (req, res) => {
-const course = await Course.getById(req.body.id)
+    const course = await Course.getById(req.body.id)
     await Card.add(course)
     res.redirect('/card')
 })
 
-router.get('/', async (req, res)=>{
+router.get('/', async (req, res) => {
     const card = await Card.fetch()
-    res.render('card',{
+    res.render('card', {
         title: 'Card',
-        card
+        isCard: true,
+        courses: card.courses,
+        price: card.price
     })
 })
 
